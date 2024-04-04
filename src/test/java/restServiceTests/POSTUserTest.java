@@ -9,23 +9,14 @@ import restServiceTests.pojo.AuthRes;
 
 public class POSTUserTest {
     @Test
-    void authenticateUser(){
-        Specs.installSpec(Specs.requestSpecification("https://bookstore.toolsqa.com", "Account/v1"), Specs.responseSpecification());
-        AuthReq authReq = new AuthReq("TOOLSQA-Test", "Test@@123");
-        AuthRes authRes = RestAssured
-                .given()
-                .when()
-                .body(authReq)
-                .post("/GenerateToken")
-                .then()
-                .statusCode(200)
-                .extract().response().as(AuthRes.class);
-
-        UserReq userReq = new UserReq("irwаrgjnjnjRtgi", "GFbgh&udfgd34");
+    void createUser(){
+        Token token = new Token();
+        String authToken = token.getAuthToken();
+        UserReq userReq = new UserReq("iroRtpgi", "GFbgh&udf34");
         UserRes userRes = RestAssured
                 .given()
                 .when()
-                .header("Authorization", "Bearer " + authRes.getToken())
+                .header("Authorization", "Bearer " + authToken )
                 .body(userReq)
                 .post("/User")
                 .then()
